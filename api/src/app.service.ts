@@ -16,7 +16,7 @@ export class AppService implements OnModuleInit {
     const dataset = await readFile(`src/dataset.json`, 'utf8');
 
     // Read file and then convert content to a Fountain[]
-    const fileFountains = (JSON.parse(dataset) as any[]).map((fountainFromFile) => {
+    /*const fileFountains = (JSON.parse(dataset) as any[]).map((fountainFromFile) => {
       const convertedFountain: Fountain = {
         id: fountainFromFile.gid,
         tObject: fountainFromFile.type_object,
@@ -24,26 +24,28 @@ export class AppService implements OnModuleInit {
         numVoie: fountainFromFile.numVoie,
         voie: fountainFromFile.voie,
         commune: fountainFromFile.commune,
+        geoPoint2d: fountainFromFile.geo_point_2d,
         disponibility: (fountainFromFile.dispo==="OUI" ? true : false),
         fav: true,
       };
       return convertedFountain;
-    });
+    });*/
 
     // Call external API and then convert content to a Book[]
     const externalFountains = await firstValueFrom(
       this.httpService
-        .get<ExternalFountain[]>('https://data.opendatasoft.com/explore/dataset/fontaines-a-boire@parisdata/download/?format=geojson&timezone=Europe/Berlin&lang=fr') //Normalement c'est le bon lien
+        .get<ExternalFountain>('https://data.opendatasoft.com/explore/dataset/fontaines-a-boire@parisdata/download/?format=geojson&timezone=Europe/Berlin&lang=fr') //Normalement c'est le bon lien
         .pipe(
           map((response) =>
-            response.data.map((externalFountain) => ({
-              id: externalFountain.gid,
-              tObject: externalFountain.type_objet,
-              disponibility: (externalFountain.dispo==="OUI" ? true : false),
-              modele: externalFountain.modele,
-              commune: externalFountain.commune,
-              numVoie: typeof(externalFountain.no_voirie_pair)=== undefined ? externalFountain.no_voirie_impair : externalFountain.no_voirie_pair,
-              voie: externalFountain.voie,
+            response.data.features.map((externalFountain) => ({
+              id: externalFountain.properties.gid,
+              tObject: externalFountain.properties.type_objet,
+              disponibility: (externalFountain.properties.dispo==="OUI" ? true : false),
+              modele: externalFountain.properties.modele,
+              geoPoint2d: externalFountain.properties.geo_point_2d,
+              commune: externalFountain.properties.commune,
+              numVoie: typeof(externalFountain.properties.no_voirie_pair)=== undefined ? externalFountain.properties.no_voirie_impair : externalFountain.properties.no_voirie_pair,
+              voie: externalFountain.properties.voie,
               fav: false,
             })),
           ),
@@ -51,8 +53,8 @@ export class AppService implements OnModuleInit {
     );
 
     // Add all the books
-    [...fileFountains, ...externalFountains].forEach((fountain) => this.addFountain(fountain));
-    //[...fileFountains].forEach((fountain) => this.addFountain(fountain));
+    //[...fileFountains, ...externalFountains].forEach((fountain) => this.addFountain(fountain));
+    [...externalFountains].forEach((fountain) => this.addFountain(fountain));
 
     this.logger.log(`There are ${this.fountainStorage.size} indexed fountains.`);
   }

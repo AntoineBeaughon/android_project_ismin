@@ -9,4 +9,5 @@ export interface Fountain {
     readonly commune: string;
     readonly disponibility: boolean;
     readonly fav: boolean;
+    readonly geoPoint2d: number[];
   }
