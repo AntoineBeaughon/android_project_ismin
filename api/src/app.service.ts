@@ -16,16 +16,17 @@ export class AppService implements OnModuleInit {
     const dataset = await readFile(`src/dataset.json`, 'utf8');
 
     // Read file and then convert content to a Fountain[]
-    /*const fileFountains = (JSON.parse(dataset) as any[]).map((fountainFromFile) => {
+    //const fileFountains = (JSON.parse(dataset) as any[]).map((fountainFromFile) => {
+    /*const fileFountains = [JSON.parse(dataset)].map((fountainFromFile) => {
       const convertedFountain: Fountain = {
-        id: fountainFromFile.gid,
-        tObject: fountainFromFile.type_object,
-        modele: fountainFromFile.modele,
-        numVoie: fountainFromFile.numVoie,
-        voie: fountainFromFile.voie,
-        commune: fountainFromFile.commune,
-        geoPoint2d: fountainFromFile.geo_point_2d,
-        disponibility: (fountainFromFile.dispo==="OUI" ? true : false),
+        id: fountainFromFile.features.gid,
+        tObject: fountainFromFile.features.type_object,
+        modele: fountainFromFile.features.modele,
+        numVoie: fountainFromFile.features.numVoie,
+        voie: fountainFromFile.features.voie,
+        commune: fountainFromFile.features.commune,
+        geoPoint2d: fountainFromFile.features.geo_point_2d,
+        disponibility: (fountainFromFile.features.dispo==="OUI" ? true : false),
         fav: true,
       };
       return convertedFountain;
