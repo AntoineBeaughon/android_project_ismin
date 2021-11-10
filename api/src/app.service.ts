@@ -16,19 +16,20 @@ export class AppService implements OnModuleInit {
     const dataset = await readFile(`src/dataset.json`, 'utf8');
 
     // Read file and then convert content to a Fountain[]
-    //const fileFountains = (JSON.parse(dataset) as any[]).map((fountainFromFile) => {
-    /*const fileFountains = [JSON.parse(dataset)].map((fountainFromFile) => {
+    /*const fileFountains = (JSON.parse(dataset) as any[]).map((fountainFromFile) => {
       const convertedFountain: Fountain = {
-        id: fountainFromFile.features.gid,
-        tObject: fountainFromFile.features.type_object,
-        modele: fountainFromFile.features.modele,
-        numVoie: fountainFromFile.features.numVoie,
-        voie: fountainFromFile.features.voie,
-        commune: fountainFromFile.features.commune,
-        geoPoint2d: fountainFromFile.features.geo_point_2d,
-        disponibility: (fountainFromFile.features.dispo==="OUI" ? true : false),
+        id: fountainFromFile.properties.gid,
+        tObject: fountainFromFile.properties.type_object,
+        modele: fountainFromFile.properties.modele,
+        numVoie: typeof(fountainFromFile.properties.no_voirie_pair)=== null ? fountainFromFile.properties.no_voirie_impair : fountainFromFile.properties.no_voirie_pair,
+        voie: fountainFromFile.properties.voie,
+        commune: fountainFromFile.properties.commune,
+        geoPoint2d: fountainFromFile.properties.geo_point_2d,
+        disponibility: (fountainFromFile.properties.dispo==="OUI" ? true : false),
         fav: true,
       };
+      console.log(convertedFountain)
+      this.addFountain(convertedFountain)
       return convertedFountain;
     });*/
 
@@ -62,7 +63,7 @@ export class AppService implements OnModuleInit {
 
   
   addFountain(fountain: Fountain): void {
-    this.fountainStorage.set(fountain.tObject, fountain);
+    this.fountainStorage.set(fountain.id, fountain);
   }
 
   // renvoie au moins une fontaine d'une rue
