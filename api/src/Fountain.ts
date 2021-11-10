@@ -8,6 +8,6 @@ export interface Fountain {
     readonly voie: string;
     readonly commune: string;
     readonly disponibility: boolean;
-    readonly fav: boolean;
+    fav: boolean;
     readonly geoPoint2d: number[];
   }
