@@ -15,7 +15,7 @@ class InfosFragment: Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_about, container, false)
+        return inflater.inflate(R.layout.fragment_infos, container, false)
     }
 
     companion object {

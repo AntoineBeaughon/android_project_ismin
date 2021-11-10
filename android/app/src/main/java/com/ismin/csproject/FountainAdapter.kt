@@ -15,7 +15,7 @@ class FountainAdapter (
     ) : RecyclerView.Adapter<FountainAdapter.FountainViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FountainViewHolder {
-            val row = LayoutInflater.from(parent.context).inflate(R.layout.row_ftn, parent, false)
+            val row = LayoutInflater.from(parent.context).inflate(R.layout.row_fountain, parent, false)
             return FountainViewHolder(row)
         }
 
