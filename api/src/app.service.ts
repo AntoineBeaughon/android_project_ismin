@@ -15,24 +15,6 @@ export class AppService implements OnModuleInit {
   async onModuleInit(): Promise<void> {
     const dataset = await readFile(`src/dataset.json`, 'utf8');
 
-    // Read file and then convert content to a Fountain[]
-    /*const fileFountains = (JSON.parse(dataset) as any[]).map((fountainFromFile) => {
-      const convertedFountain: Fountain = {
-        id: fountainFromFile.properties.gid,
-        tObject: fountainFromFile.properties.type_object,
-        modele: fountainFromFile.properties.modele,
-        numVoie: typeof(fountainFromFile.properties.no_voirie_pair)=== null ? fountainFromFile.properties.no_voirie_impair : fountainFromFile.properties.no_voirie_pair,
-        voie: fountainFromFile.properties.voie,
-        commune: fountainFromFile.properties.commune,
-        geoPoint2d: fountainFromFile.properties.geo_point_2d,
-        disponibility: (fountainFromFile.properties.dispo==="OUI" ? true : false),
-        fav: true,
-      };
-      console.log(convertedFountain)
-      this.addFountain(convertedFountain)
-      return convertedFountain;
-    });*/
-
     // Call external API and then convert content to a Book[]
     const externalFountains = await firstValueFrom(
       this.httpService
@@ -53,9 +35,6 @@ export class AppService implements OnModuleInit {
           ),
         ),
     );
-
-    // Add all the books
-    //[...fileFountains, ...externalFountains].forEach((fountain) => this.addFountain(fountain));
     [...externalFountains].forEach((fountain) => this.addFountain(fountain));
 
     this.logger.log(`There are ${this.fountainStorage.size} indexed fountains.`);
@@ -65,17 +44,6 @@ export class AppService implements OnModuleInit {
   addFountain(fountain: Fountain): void {
     this.fountainStorage.set(fountain.id, fountain);
   }
-
-  // renvoie au moins une fontaine d'une rue
-  /*getFoutain(voie: string): Fountain {
-    const foundFountain = this.fountainStorage.get(voie);
-
-    if (!foundFountain) {
-      throw new Error(`Not book found with name ${voie}`);
-    }
-
-    return foundFountain;
-  }*/
 
   getFountainsByStreet(voie: string): Fountain[] { // renvoie toutes les fontaines d'une rues
     return this.getAllFountains().filter((fountain) => {
@@ -95,30 +63,16 @@ export class AppService implements OnModuleInit {
     );
   }
 
-  getTotalNumberOfFountains(): number {
+
+  getTotalNumberOfFountains(): number { // renvoie le nombre de fontaines enregistrées
     return this.fountainStorage.size;
   }
 
-  /*getFountainsPublishedBefore(aDate: string | Date): Fountain[] {
-    const dateCriterion = typeof aDate === 'string' ? new Date(aDate) : aDate;
-
-    return this.getAllFountains().filter(
-      (fountain) => Fountain.date.getTime() <= dateCriterion.getTime(),
-    );
-  }*/
-
-  deleteFountain(fountainTitle: string): void {
-    this.fountainStorage.delete(fountainTitle);
+  deleteFountain(fountainId: string): void { // supprime la fontaine d'Id "fountainId"
+    this.fountainStorage.delete(fountainId);
   }
 
-  /*searchByAuthorAndTitle(term: string): Fountain[] {
-    const escapedTerm = term.toLowerCase().trim();
-
-    return this.getAllFountains().filter((fountain) => {
-      return (
-        fountain.title.toLowerCase().includes(escapedTerm) ||
-        fountain.author.toLowerCase().includes(escapedTerm)
-      );
-    });
-  }*/
+  addToFav(fountainId): void { // rend la fontaine
+    this.fountainStorage.get(fountainId).fav = !this.fountainStorage.get(fountainId).fav;
+  }
 }
