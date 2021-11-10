@@ -12,9 +12,9 @@ Projet Android 2021 : conception d'une API de base de donnée et d'une applicati
 # Fonctionnalités
 
 - Affiche la liste des fontaines
-- cliquer sur un élément de la liste permet de faire afficher en détail les informations relatives à celle-ci
-- Un bouton refresh permettant d'actualiser la base de donnée
-- Un bouton "info" ouvrant une page présentant notre projet et son cadre
+- Cliquer sur un élément de la liste permet de faire afficher en détail les informations relatives à celle-ci
+- Un bouton refresh permet d'actualiser la base de donnée
+- Un bouton "infos" ouvre une page présentant notre projet et son cadre
 
 # Architecture côté API
 
@@ -31,17 +31,17 @@ Les autres fichiers sont :
 # Architecture côté Android
 
 Une partie du code côté Android est consacré à la récupération et au traitement des données de l'API :
-- Fountain : L'équivalent KotLin du type "Fountain" définie côté API
+- Fountain : L'équivalent KotLin du type "Fountain" défini côté API
 - FountainShelf : classe gérant un ensemble de Fountain
-- FountainAdapter : 
-- FountainService :
-- UserService : définit les différentes requêtes envoaybles à l'API
+- FountainAdapter : classe permettant de traiter les données pour qu'elles puissent être affichées dans une liste dans l'application
+- FountainService : définit les différentes requêtes envoyables à l'API concernant les fontaines
+- UserService : définit les différentes requêtes envoyables à l'API concernant les favoris
 
 On affiche ces données à l'aide de deux activities et deux fragments :
-- MainActivity :
-- FountainListFragment :
-- InfosFragment :
-- DetailActivity :
+- MainActivity : l'activité principale qui affiche les boutons et les différents fragments
+- FountainListFragment : le fragment contenant la liste des fontaines
+- InfosFragment : le fragment contenant les informations sur le projet
+- DetailActivity : la deuxième activité qui affiche les détails d'une fontaine lorsqu'on clique sur celle-ci
 
 # Liens utiles
 
