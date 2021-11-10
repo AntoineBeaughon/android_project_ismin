@@ -9,6 +9,13 @@ Antoine Beaughon - Clémence Jampy
 Projet Android 2021 : conception d'une API de base de donnée et d'une application android affichant la base de donnée
 
 
+# Fonctionnalités
+
+- Affiche la liste des fontaines
+- cliquer sur un élément de la liste permet de faire afficher en détail les informations relatives à celle-ci
+- Un bouton refresh permettant d'actualiser la base de donnée
+- Un bouton "info" ouvrant une page présentant notre projet et son cadre
+
 # Architecture côté API
 
 On crée deux types de données : 
