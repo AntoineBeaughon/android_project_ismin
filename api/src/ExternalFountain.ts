@@ -1,15 +1,26 @@
 
 
 export interface ExternalFountain {
-    readonly gid: string;
-    readonly type_objet: string;
-    readonly modele: string;
-    readonly no_voirie_pair: string;
-    readonly no_voirie_impair: string;
-    readonly voie: string;
-    readonly commune: string;
-    readonly dispo: string;
-    readonly debut_ind: string;
-    readonly fin_ind: string;
-    readonly motif_ind: string; 
+  features: Array<Feature>,
+}
+interface Feature{
+  type:string,
+  geometry:{
+    type:string,
+    coordinates:number[],
   }
+  properties:{
+    type_objet: string,
+    dispo: string,
+    voie: string,
+    geo_point_2d: number[],
+    no_voirie_pair: string,
+    no_voirie_impair: string,
+    commune: string,
+    debut_ind: string,
+    fin_ind: string,
+    motif_ind: string,
+    gid: string,
+    modele: string,
+  }
+}
