@@ -43,7 +43,7 @@ class FountainListFragment : Fragment(), FountainAdapter.OnItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ftnShelf = arguments!!.getSerializable("candies") as ArrayList<Fountain>
+        ftnShelf = arguments!!.getSerializable("fountains") as ArrayList<Fountain>
         favShelf = arguments!!.getSerializable("favs") as ArrayList<String>
     }
 
@@ -55,7 +55,7 @@ class FountainListFragment : Fragment(), FountainAdapter.OnItemClickListener {
 
         this.rcvFountains = rootView.findViewById(R.id.a_rcv_fountains)
         ftnAdapter = FountainAdapter(ftnShelf, favShelf, this)
-        this.rcvFountains.adapter = FountainAdapter
+        this.rcvFountains.adapter = ftnAdapter
         val linearLayoutManager = LinearLayoutManager(context)
         this.rcvFountains.layoutManager = linearLayoutManager
 
