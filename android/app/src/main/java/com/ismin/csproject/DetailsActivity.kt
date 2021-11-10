@@ -17,7 +17,7 @@ class DetailsActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
-        ftn = intent.getSerializableExtra("fountain") as Fountain
+        ftn = intent.getSerializableExtra("id") as Fountain
 
         fav = intent.getBooleanExtra("fav", false)
 

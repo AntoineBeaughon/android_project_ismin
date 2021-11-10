@@ -11,5 +11,5 @@ data class Fountain(
     val commune: String,
     val disponibility: Boolean,
     val fav: Boolean,
-    val geoPoint2d: Array<Int>
+    val geoPoint2d: List<Double>
 ) : Serializable

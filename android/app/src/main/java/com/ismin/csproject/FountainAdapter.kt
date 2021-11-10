@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class FountainAdapter (
     private val ftns: ArrayList<Fountain>, private val favshelf :ArrayList<String>,
-    private val listener: AdapterView.OnItemClickListener
+    private val listener: OnItemClickListener
     ) : RecyclerView.Adapter<FountainAdapter.FountainViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FountainViewHolder {
@@ -27,7 +27,7 @@ class FountainAdapter (
             else{
                 holder.buttonFav.setImageResource(R.drawable.ic_baseline_star_border_24)
             }
-            holder.txvName.text = ids
+            holder.txvId.text = ids
         }
 
         override fun getItemCount(): Int {
@@ -43,7 +43,7 @@ class FountainAdapter (
         inner class FountainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
             View.OnClickListener {
 
-            var txvName = itemView.findViewById<TextView>(R.id.r_ftn_txv_id)
+            var txvId = itemView.findViewById<TextView>(R.id.r_ftn_txv_id)
             val buttonFav = itemView.findViewById<ImageButton>(R.id.imageButtonFav)
 
             init {
@@ -54,14 +54,14 @@ class FountainAdapter (
             override fun onClick(v: View?) {
                 when (v) {
                     buttonFav -> {
-                        if(favshelf.contains(txvName.text)){
+                        if(favshelf.contains(txvId.text)){
                             buttonFav.setImageResource(R.drawable.ic_baseline_star_border_24)
-                            favshelf.remove(txvName.text)
+                            favshelf.remove(txvId.text)
                             listener.favFromAdapter(adapterPosition)
 
                         }else{
                             buttonFav.setImageResource(R.drawable.ic_baseline_star_24)
-                            favshelf.add(txvName.text as String)
+                            favshelf.add(txvId.text as String)
                             listener.favFromAdapter(adapterPosition)
                         }
                     }

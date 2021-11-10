@@ -29,14 +29,14 @@ class MainActivity : AppCompatActivity(), FountainListFragment.FountainListListe
         .build()
     private val ftnService = retrofit.create(FountainService::class.java)
     private val userService = retrofit.create(UserService::class.java)
-    private lateinit var username: String
+    //private lateinit var username: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        username = intent.getStringExtra(Intent.EXTRA_TEXT)!!
-        Toast.makeText(this, "Welcome ${username}!", Toast.LENGTH_SHORT).show()
+        //username = intent.getStringExtra(Intent.EXTRA_TEXT)!!
+        //Toast.makeText(this, "Welcome ${username}!", Toast.LENGTH_SHORT).show()
 
         /*btnCreateFountain = findViewById(R.id.a_main_btn_create_fountain)
         btnCreateFountain.setOnClickListener {
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity(), FountainListFragment.FountainListListe
     }
 
     private fun loadFav() {
-        userService.getFavorites(username).enqueue(object : Callback<ArrayList<String>> {
+        userService.getFavorites().enqueue(object : Callback<ArrayList<String>> {
             override fun onResponse(
                 call: Call<ArrayList<String>>,
                 response: Response<ArrayList<String>>
@@ -127,11 +127,11 @@ class MainActivity : AppCompatActivity(), FountainListFragment.FountainListListe
         }
     }
 
-    fun favFromFragment(id: String) {
+    override fun favFromFragment(id: String) {
         if (favShelf.contains(id)) {
             Toast.makeText(this, "Removing ${id}", Toast.LENGTH_SHORT).show()
 
-            userService.deleteFavorite(username, id).enqueue(object: Callback<ArrayList<String>>{
+            userService.deleteFavorite(id).enqueue(object: Callback<ArrayList<String>>{
                 override fun onResponse(call : Call<ArrayList<String>>, response: Response<ArrayList<String>>) {
                     favShelf.remove(id)
                 }
@@ -143,7 +143,7 @@ class MainActivity : AppCompatActivity(), FountainListFragment.FountainListListe
         } else {
             Toast.makeText(this, "Adding ${id}", Toast.LENGTH_SHORT).show()
 
-            userService.addFavorites(username,id).enqueue(object: Callback<ArrayList<String>>{
+            userService.addFavorites(id).enqueue(object: Callback<ArrayList<String>>{
                 override fun onResponse(call: Call<ArrayList<String>>, response: Response<ArrayList<String>>) {
                     favShelf.add(id)
                     refresh()

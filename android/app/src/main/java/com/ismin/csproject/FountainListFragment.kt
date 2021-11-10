@@ -22,7 +22,7 @@ class FountainListFragment : Fragment(), FountainAdapter.OnItemClickListener {
     private var listener: FountainListListener? = null
 
     interface FountainListListener {
-        //fun favFromFragment(name: String)
+        fun favFromFragment(name: String)
         fun refresh()
     }
 
@@ -43,8 +43,8 @@ class FountainListFragment : Fragment(), FountainAdapter.OnItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ftnShelf = arguments!!.getSerializable("fountains") as ArrayList<Fountain>
-        favShelf = arguments!!.getSerializable("favs") as ArrayList<String>
+        ftnShelf = requireArguments().getSerializable("fountains") as ArrayList<Fountain>
+        favShelf = requireArguments().getSerializable("favs") as ArrayList<String>
     }
 
     override fun onCreateView(
@@ -81,15 +81,15 @@ class FountainListFragment : Fragment(), FountainAdapter.OnItemClickListener {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
             var newfav = data?.getBooleanExtra("fav", false)
-            var name = data?.getStringExtra("fountainname")
-            if (name != null) {
+            var id = data?.getStringExtra("id")
+            if (id != null) {
                 if (newfav!!) {
-                    if (!favShelf.contains(name)) {
-                        favShelf.add(name)
+                    if (!favShelf.contains(id)) {
+                        favShelf.add(id)
                     }
                 } else {
-                    if (favShelf.contains(name)) {
-                        favShelf.remove(name)
+                    if (favShelf.contains(id)) {
+                        favShelf.remove(id)
                     }
                 }
                 listener?.refresh()

@@ -22,7 +22,7 @@
         android:id="@+id/r_ftn_txv_id"
         android:layout_width="368dp"
         android:layout_height="36dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="50dp"
         android:fontFamily="sans-serif-thin"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textSize="24sp"
