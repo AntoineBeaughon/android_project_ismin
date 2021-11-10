@@ -71,7 +71,7 @@ class FountainListFragment : Fragment(), FountainAdapter.OnItemClickListener {
         val ftn: Fountain = ftnShelf[position]
         Toast.makeText(context, "Item ${ftn.id} clicked", Toast.LENGTH_SHORT).show()
 
-        val intent = Intent(context, InfosActivity::class.java)
+        val intent = Intent(context, DetailsActivity::class.java)
         intent.putExtra("id", ftn)
         intent.putExtra("fav", favShelf.contains(ftn.id))
         this.startActivityForResult(intent, 1)
